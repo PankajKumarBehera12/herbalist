@@ -4,94 +4,446 @@
 
 {% block bodyblock %}
 <style>
-    /* HERO SECTION */
-.about-hero {
-  height: 360px;
-  background-image: url("{% static 'image/header.jpg' %}"); /* your leaf + bottle image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.hero {
+  display: flex;
+  min-height: 90vh;
+  font-family: 'Poppins', sans-serif;
+}
 
+/* LEFT SIDE */
+.hero-left {
+  width: 50%;
+  padding: 120px 90px;
+  background: #f9f7ef;
+}
+
+.hero-left h1 {
+  font-size: 60px;
+  color: #214c3d;
+  line-height: 1.15;
+  margin-bottom: 25px;
+}
+
+.hero-left p {
+  font-size: 16px;
+  color: #6f7d78;
+  max-width: 420px;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.btn-primary {
+  background: #f3c969;
+  color: #214c3d;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* RIGHT SIDE */
+.hero-right {
+  width: 50%;
+  background: #234b43;
+  color: #fff;
+  padding: 120px 90px;
+  position: relative;
+}
+
+.hero-info h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero-info p {
+  color: #cfd8d4;
+  line-height: 1.7;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.feature-list li {
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+/* LINK */
+.link-underline {
+  color: #f3c969;
+  text-decoration: none;
+  border-bottom: 2px solid #f3c969;
+  padding-bottom: 4px;
+  font-weight: 600;
+}
+
+/* SLIDE NUMBERS */
+.slide-numbers {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.slide-numbers span {
+  color: #6f7d78;
+  font-size: 18px;
+}
+
+.slide-numbers .active {
+  color: #ffffff;
+  font-weight: bold;
+}
+ /* feateacher */
+.featured {
+  padding: 100px 90px;
+  background: #fff;
+  text-align: center;
+}
+
+.featured-head h2 {
+  font-size: 42px;
+  color: #214c3d;
+  margin-bottom: 10px;
+}
+
+.featured-head p {
+  color: #6f7d78;
+  line-height: 1.7;
+  margin-bottom: 70px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.product-card {
+  background: #f9fdfb;
+  border-radius: 18px;
+  padding: 30px 25px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+.product-card img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.rating {
+  color: #f3c969;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.product-card h3 {
+  color: #214c3d;
+  margin-bottom: 10px;
+}
+
+.meta span {
+  display: block;
+  font-size: 14px;
+  color: #6f7d78;
+}
+
+.price {
+  margin: 20px 0;
+  font-size: 22px;
+  color: #214c3d;
+}
+
+.price del {
+  color: #b5b5b5;
+  margin-right: 8px;
+}
+
+button {
+  border: 2px solid #1f9c6a;
+  background: transparent;
+  padding: 10px 26px;
+  border-radius: 30px;
+  color: #1f9c6a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f9c6a;
+  color: #fff;
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #1f9c6a;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.offers-section {
+  padding: 100px 90px;
+  background: #fff;
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  background: #f9fdfb;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+.product-card img {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.rating {
+  color: #f3c969;
+  margin-bottom: 10px;
+}
+
+.product-card h3 {
+  color: #214c3d;
+  margin-bottom: 10px;
+}
+
+.meta {
+  font-size: 14px;
+  color: #6f7d78;
+}
+
+.price {
+  margin: 18px 0;
+  font-size: 22px;
+  color: #214c3d;
+}
+
+.price del {
+  color: #b5b5b5;
+  margin-right: 8px;
+}
+
+button {
+  padding: 10px 26px;
+  border-radius: 30px;
+  border: 2px solid #1f9c6a;
+  background: transparent;
+  color: #1f9c6a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f9c6a;
+  color: #fff;
+}
+
+.badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #1f9c6a;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* OFFER BANNER */
+.offer-banner {
+  background: #fdfcf6 url("{% static 'images/offer-bg.png' %}") no-repeat right center;
+  background-size: contain;
+  border-radius: 25px;
+  padding: 50px;
+}
+
+.offer-banner h2 {
+  font-size: 32px;
+  color: #214c3d;
+  margin-bottom: 15px;
+}
+
+.offer-banner p {
+  color: #6f7d78;
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.countdown div {
+  background: #1f9c6a;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.countdown span {
+  font-size: 24px;
+  font-weight: 700;
+  display: block;
+}
+
+/* CTA */
+.center-btn {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.btn-primary {
+  background: #f3c969;
+  color: #214c3d;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Product */
+.product-detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  padding: 120px 90px;
+  align-items: flex-start;
+}
+
+/* IMAGE */
+.product-image img {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* INFO */
+.product-info {
+  max-width: 600px;
+}
+
+.product-info h1 {
+  font-size: 42px;
+  color: #214c3d;
+  margin-bottom: 15px;
+}
+
+.rating {
+  color: #f3c969;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.rating span {
+  color: #6f7d78;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.description {
+  color: #6f7d78;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+/* FEATURES */
+.features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+
+.features li {
+  margin-bottom: 14px;
+  font-size: 16px;
+  color: #214c3d;
+}
+
+/* BUY */
+.buy {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: 700;
+  color: #214c3d;
+}
+
+.add-cart {
+  background: #f3c969;
+  border: none;
+  padding: 14px 34px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #214c3d;
+  cursor: pointer;
+}
+
+.doctor-banner {
+  min-height: 520px;
+  background: radial-gradient(
+      circle at top,
+      rgba(255,255,255,0.08),
+      rgba(0,0,0,0.2)
+    ),
+    linear-gradient(135deg, #1e4c42, #12352e);
+  
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 80px 20px;
 }
 
-.about-content h1 {
-  font-size: 56px;
-  color: #1f4d3f;
-  margin-bottom: 16px;
-  font-weight: 700;
+.banner-content {
+  max-width: 70%;
 }
 
-.about-content p {
-  max-width: 600px;
-  font-size: 18px;
-  color: #6f7d78;
-  line-height: 1.6;
-}
-
-/* BREADCRUMB */
-.breadcrumb {
-  padding: 30px 80px;
-  font-size: 18px;
-}
-
-.breadcrumb a {
-  color: #1f9c6a;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.breadcrumb span {
-  margin: 0 6px;
-  color: #888;
-}
-
-.breadcrumb .current {
-  color: #444;
-}
-
-/* UNDERLINE EFFECT */
-.breadcrumb::after {
-  content: "";
-  display: block;
-  width: 100px;
-  height: 3px;
-  background: #1f9c6a;
-  margin-top: 12px;
-}
-
-
-.about-info {
-  padding: 100px 90px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.about-wrapper {
-  display: flex;
-  justify-content: space-between;
-  gap: 80px;
-}
-
-.about-text h2 {
-  font-size: 38px;
-  color: #214c3d;
-  line-height: 1.25;
+.banner-logo {
+  width: 90px;
   margin-bottom: 30px;
 }
 
-.about-text p {
-  font-size: 16px;
-  color: #6f7d78;
-  line-height: 1.8;
-  max-width: 620px;
+.banner-content h2 {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-.about-image img {
-  max-width: 420px;
-}
 
 /* STATS */
 .stats {
@@ -99,6 +451,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
   margin-top: 90px;
+  padding: 50px;
 }
 
 .stat-box h3 {
@@ -112,6 +465,97 @@
   color: #6f7d78;
   line-height: 1.6;
 }
+
+/* THERAPY SECTION */
+.therapy-section {
+  padding: 120px 90px;
+  background: #fff;
+  position: relative;
+}
+
+.therapy-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* LEFT */
+.therapy-left h2 {
+  font-size: 42px;
+  line-height: 1.2;
+  color: #214c3d;
+  margin-bottom: 20px;
+}
+
+.therapy-left p {
+  color: #6f7d78;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  max-width: 420px;
+}
+
+.molecule {
+  width: 260px;
+  margin-top: 40px;
+  opacity: 0.7;
+}
+
+/* BUTTON */
+.btn-primary {
+  display: inline-block;
+  background: #f3c969;
+  color: #214c3d;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* CENTER BLUR */
+.therapy-glow {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(31,156,106,.15), transparent 70%);
+  border-radius: 50%;
+  margin: auto;
+}
+
+/* RIGHT */
+.therapy-right {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.therapy-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f3c969;
+  color: #214c3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.therapy-item h4 {
+  margin-bottom: 6px;
+  color: #214c3d;
+}
+
+.therapy-item p {
+  color: #6f7d78;
+  font-size: 14px;
+}
+
 
 .how-we-work {
   padding: 100px 90px;
@@ -177,49 +621,185 @@
 
 
 </style>
-    <!-- ABOUT HERO -->
-<section class="about-hero">
-  <div class="about-content">
-    <h1>About</h1>
+  <section class="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <h1>
+      Highest Quality <br>
+      Marijuana Seeds
+    </h1>
+
     <p>
-      Nibh tellus molestie nunc non blandit.
-      Mi tempus imperdiet nulla malesuada pellentesque elit
+      Habitasse platea dictumst quisque sagittis purus sit.
+      Dignissim enim sit amet venenatis. In est ante in nibh
+      mauris cursus mattis.
     </p>
+
+    <a href="#" class="btn-primary">Our Products</a>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="hero-right">
+    <div class="hero-info">
+      <h2>Purple Hawaiian Haze</h2>
+
+      <p>
+        Nisl vel pretium lectus quam id leo in vitae.
+        Pellentesque adipiscing commodo elit at imperdiet
+      </p>
+
+      <ul class="feature-list">
+        <li>✔ Sativa-Dominant</li>
+        <li>✔ THC 110.0–160.0mg/g</li>
+        <li>✔ CBD 0.0–1.0mg/g</li>
+      </ul>
+
+      <a href="#" class="link-underline">About Product</a>
+    </div>
+
+    <div class="slide-numbers">
+      <span>01</span>
+      <span class="active">02</span>
+      <span>03</span>
+    </div>
   </div>
 </section>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="#">Home</a>
-  <span>/</span>
-  <span class="current">About</span>
-</div>
 
-<section class="about-info">
-  <div class="about-wrapper">
-    <!-- LEFT CONTENT -->
-    <div class="about-text">
-      <h2>
-        Our knowledgeable team can help <br>
-        you design experiences tailored to <br>
-        your needs by accessing one of the <br>
-        flower selections
-      </h2>
+<!-- FEATURED PRODUCTS -->
 
-      <p>
-        Elementum eu facilisis sed odio morbi quis commodo odio. 
-        Mauris rhoncus aenean vel elit scelerisque mauris pellentesque.
-        Accumsan sit amet nulla facilisi morbi tempus. Suscipit tellus
-        mauris a diam maecenas sed enim ut sem. Turpis egestas maecenas
-        pharetra convallis posuere
-      </p>
+<section class="featured">
+  <div class="featured-head">
+    <h2>Featured Products</h2>
+    <p>
+      Suscipit tellus mauris a diam maecenas sed enim ut sem.<br>
+      Turpis egestas maecenas pharetra convallis posuere
+    </p>
+  </div>
+
+  <div class="product-grid">
+    <!-- CARD -->
+    <div class="product-card">
+      <img src="{% static 'images/product1.png' %}" alt="Tangerine Dream">
+      <div class="rating">★★★★★</div>
+      <h3>Tangerine Dream</h3>
+      <div class="meta">
+        <span>THC 17.00–23.00%</span>
+        <span>CBD 0.00–1.00%</span>
+      </div>
+      <div class="price">$5.88</div>
+      <button>Add to Cart</button>
     </div>
 
-    <!-- RIGHT IMAGE -->
-    <div class="about-image">
-      <img src="{% static 'image/about.jpg'%}" alt="About">
+    <div class="product-card">
+      <img src="{% static 'images/product2.png' %}" alt="Tangerine Dream">
+      <div class="rating">★★★★★</div>
+      <h3>Tangerine Dream</h3>
+      <div class="meta">
+        <span>THC 17.00–23.00%</span>
+        <span>CBD 0.00–1.00%</span>
+      </div>
+      <div class="price">$7.97</div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product-card sale">
+      <span class="badge">Sale</span>
+      <img src="{% static 'images/product3.png' %}" alt="High CBD 50 Oil">
+      <div class="rating">★★★★★</div>
+      <h3>High CBD 50 Oil</h3>
+      <div class="meta">
+        <span>THC 17.00–23.00%</span>
+        <span>CBD 0.00–1.00%</span>
+      </div>
+      <div class="price">
+        <del>$7.97</del> <strong>$5.99</strong>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product-card sale">
+      <span class="badge">Sale</span>
+      <img src="{% static 'images/product4.png' %}" alt="CBD Plus Formula Oil">
+      <div class="rating">★★★★★</div>
+      <h3>CBD Plus Formula Oil</h3>
+      <div class="meta">
+        <span>THC 17.00–23.00%</span>
+        <span>CBD 0.00–1.00%</span>
+      </div>
+      <div class="price">
+        <del>$9.97</del> <strong>$7.99</strong>
+      </div>
+      <button>Add to Cart</button>
     </div>
   </div>
+</section>
+
+
+<!-- OFFERS SECTION -->
+
+<section class="offers-section">
+  <div class="offers-grid">
+
+    <!-- PRODUCT 1 -->
+    <div class="product-card sale">
+      <span class="badge">Sale</span>
+      <img src="{% static 'images/product1.png' %}" alt="Tangerine Dream">
+      <div class="rating">★★★★★</div>
+      <h3>Tangerine Dream</h3>
+
+      <p class="meta">
+        <strong>THC</strong> 17.00–23.00% <br>
+        <strong>CBD</strong> 0.00–1.00%
+      </p>
+
+      <div class="price">
+        <del>$12.15</del> <span>$7.97</span>
+      </div>
+
+      <button>Add to Cart</button>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="product-card">
+      <img src="{% static 'images/product2.png' %}" alt="Limelight">
+      <div class="rating">★★★★★</div>
+      <h3>Limelight (Ultra Sour)</h3>
+
+      <p class="meta">
+        <strong>THC</strong> 18.00–25.00% <br>
+        <strong>CBD</strong> 0.00–1.00%
+      </p>
+
+      <div class="price">$10.15</div>
+      <button>Add to Cart</button>
+    </div>
+
+    <!-- OFFER BANNER -->
+    <div class="offer-banner">
+      <h2>Best Offers for Customers</h2>
+      <p>
+        Shop our selection of vape carts, available in a range
+        of strains, sizes, and formats, including true-to-flower
+        and larger cartridges.
+      </p>
+
+      <div class="countdown">
+        <div><span>00</span>Days</div>
+        <div><span>00</span>Hours</div>
+        <div><span>00</span>Mins</div>
+        <div><span>00</span>Secs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="center-btn">
+    <a href="#" class="btn-primary">All Products</a>
+  </div>
+</section>
+
+
+
 
   <!-- STATS -->
   <div class="stats">
@@ -249,6 +829,116 @@
   </div>
 </section>
 
+<section class="product-detail">
+  <!-- LEFT: PRODUCT IMAGE -->
+  <div class="product-image">
+    <img src="{% static 'image/product.jpg' %}" alt="CBD Facial Serum">
+  </div>
+
+  <!-- RIGHT: PRODUCT INFO -->
+  <div class="product-info">
+    <h1>CBD Facial Serum: Anti-Aging + Daily Moisturizer</h1>
+
+    <div class="rating">
+      ★★★★★ <span>(12)</span>
+    </div>
+
+    <p class="description">
+      Quis risus sed vulputate odio ut. Arcu vitae elementum curabitur vitae
+      nunc sed. Mauris a diam maecenas sed enim ut sem. Non enim praesent
+      elementum facilisis. Sapien nec sagittis aliquam malesuada bibendum
+      arcu vitae elementum.
+    </p>
+
+    <ul class="features">
+      <li>✔ Sativa-Dominant</li>
+      <li>✔ THC 110.0-160.0mg/g</li>
+      <li>✔ Euismod elementum</li>
+      <li>✔ CBD 0.0-1.0mg/g</li>
+    </ul>
+
+    <div class="buy">
+      <span class="price">$7.97</span>
+      <button class="add-cart">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTOR BANNER -->
+
+<section class="doctor-banner">
+  <div class="banner-content">
+    <img src="{% static 'image/logo.png' %}" alt="Logo" class="banner-logo">
+
+    <h2>
+      Our doctors recommend the best THC to CBD ratio to look
+      for in a marijuana strain and suggest the recommended
+      dosage and route of administration
+    </h2>
+  </div>
+</section>
+
+<!-- THERAPY SECTION -->
+
+<section class="therapy-section">
+  <div class="therapy-container">
+
+    <!-- LEFT -->
+    <div class="therapy-left">
+      <h2>
+        Therapeutic Effects<br>
+        of Cannabis and<br>
+        Cannabinoids
+      </h2>
+
+      <p>
+        Accumsan sit amet nulla facilisi morbi tempus.
+        Suscipit tellus mauris a diam maecenas sed enim
+        ut sem. Turpis egestas maecenas pharetra convallis posuere
+      </p>
+
+      <a href="#" class="btn-primary">Our Products</a>
+
+      <img src="{% static 'image/effects.jpg' %}" 
+           alt="Chemical Structure"
+           class="molecule">
+    </div>
+
+    <!-- CENTER GLOW -->
+    <div class="therapy-glow"></div>
+
+    <!-- RIGHT -->
+    <div class="therapy-right">
+      <div class="therapy-item">
+        <div class="icon">⚡</div>
+        <div>
+          <h4>Relief of chronic pain</h4>
+          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
+        </div>
+      </div>
+
+      <div class="therapy-item">
+        <div class="icon">❤</div>
+        <div>
+          <h4>Fight cancer</h4>
+          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
+        </div>
+      </div>
+
+      <div class="therapy-item">
+        <div class="icon">🧠</div>
+        <div>
+          <h4>Depression</h4>
+          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- HOW WE WORK -->
 <section class="how-we-work">
   <div class="how-header">
     <h2>How We Work</h2>
@@ -296,6 +986,7 @@
     </div>
   </div>
 </section>
+
 
 
 
