@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from products.models import Product
 # Create your views here.
 
 
@@ -23,7 +24,7 @@ def register(request):
 
         # print(username,password,email)
         # User creation logic here (not implemented)
-        return redirect('home')  # Redirect to login page after registration (not implemented)
+        return redirect('accounts:home')  # Redirect to login page after registration (not implemented)
     return render(request, 'register.html') 
 
 def login_view(request):
@@ -31,23 +32,18 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is None:
-            login(request, user)
-            return redirect('home')
-        else:
-            return render(request, 'login.html', {
-                'error': 'Invalid username or password'
-            })
+        if request.user.is_authenticated:
+            return redirect('accounts:home')
         # Authentication logic here (not implemented)
         # Redirect to a home page after login (not implemented)
     return render(request, 'login.html')
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('accounts:login')
 
 # @login_required
 def home(request):
-    return render(request, 'home.html')
+    products = Product.objects.all() 
+    return render(request, 'home.html',  {'products': products})
 

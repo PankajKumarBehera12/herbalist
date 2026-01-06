@@ -44,7 +44,7 @@
         <input type="password" name="password" placeholder="Password" required>
 
         <button type="submit">Login</button>
-        <a href='{% url "register" %}'>New User register here</a>
+        <a href='{% url "accounts:register" %}'>New User register here</a>
     </form>
 
     {% if form.errors %}

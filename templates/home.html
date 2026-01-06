@@ -1,993 +1,240 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %} <title>Home page</title> {% endblock %}
 {% load static %}
-{% block title %}<title>Home Page</title>{% endblock %}
-
 {% block bodyblock %}
 <style>
-.hero {
+/* This is the banner section styles */
+.banner {
+    background-image: url("{% static 'image/Banner 2.png' %}") ;
+    background-size: cover;
+    background-position: center;
+    height: 450px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 100px;
+    color: white;
+    text-align: left;
+    position: relative;
+    Text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    padding: 0 50px;
+}
+.banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 1;
+
+}
+.banner-content {
+    position: relative;
+    z-index: 2;
+}
+.shop-now-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1f4d3f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.shop-now-btn:hover {
+    background-color: #14532d;
+    Text-shadow: 2px 2px 4px rgba(2, 0, 0, 0.7);
+}
+
+/* this is the product section styles */
+
+.product-section {
+  padding: 80px 60px;
+  text-align: center;
+  background: #fff;
+}
+
+.section-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
+.product-slider {
   display: flex;
-  min-height: 90vh;
-  font-family: 'Poppins', sans-serif;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
 }
 
-/* LEFT SIDE */
-.hero-left {
-  width: 50%;
-  padding: 120px 90px;
-  background: #f9f7ef;
+.product-slider::-webkit-scrollbar {
+  display: none;
 }
 
-.hero-left h1 {
-  font-size: 60px;
-  color: #214c3d;
-  line-height: 1.15;
-  margin-bottom: 25px;
+.product-card {
+  min-width: 300px;
+  background: #fff;
+  text-align: center;
 }
 
-.hero-left p {
+.product-card img {
+  width: 180px;
+  margin-bottom: 15px;
+}
+
+.product-card h4 {
   font-size: 16px;
-  color: #6f7d78;
-  max-width: 420px;
-  line-height: 1.8;
-  margin-bottom: 35px;
+  margin-bottom: 6px;
 }
 
-.btn-primary {
-  background: #f3c969;
-  color: #214c3d;
-  padding: 14px 28px;
-  border-radius: 30px;
+.tagline {
+  font-size: 13px;
+  color: #234b43;
+  margin-bottom: 10px;
+}
+
+.price {
+  margin-bottom: 15px;
+}
+
+.price .new {
   font-weight: 600;
-  text-decoration: none;
 }
 
-/* RIGHT SIDE */
-.hero-right {
-  width: 50%;
+.price del {
+  color: #999;
+  margin-left: 8px;
+}
+
+.add-btn {
+  display: block;
   background: #234b43;
   color: #fff;
-  padding: 120px 90px;
-  position: relative;
-}
-
-.hero-info h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.hero-info p {
-  color: #cfd8d4;
-  line-height: 1.7;
-  max-width: 400px;
-  margin-bottom: 30px;
-}
-
-.feature-list {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 40px;
-}
-
-.feature-list li {
-  margin-bottom: 14px;
-  color: #fff;
-}
-
-/* LINK */
-.link-underline {
-  color: #f3c969;
+  padding: 12px 0;
   text-decoration: none;
-  border-bottom: 2px solid #f3c969;
-  padding-bottom: 4px;
   font-weight: 600;
 }
+.add-btn:hover {
+  background: #30c296;
+  text-shadow:  2px 2px 4px rgba(2, 0, 0, 0.7);
+}
 
-/* SLIDE NUMBERS */
-.slide-numbers {
+.nav-btn {
   position: absolute;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.slide-numbers span {
-  color: #6f7d78;
-  font-size: 18px;
-}
-
-.slide-numbers .active {
-  color: #ffffff;
-  font-weight: bold;
-}
- /* feateacher */
-.featured {
-  padding: 100px 90px;
-  background: #fff;
-  text-align: center;
-}
-
-.featured-head h2 {
-  font-size: 42px;
-  color: #214c3d;
-  margin-bottom: 10px;
-}
-
-.featured-head p {
-  color: #6f7d78;
-  line-height: 1.7;
-  margin-bottom: 70px;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-}
-
-.product-card {
-  background: #f9fdfb;
-  border-radius: 18px;
-  padding: 30px 25px;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,.06);
-}
-
-.product-card img {
-  width: 120px;
-  height: auto;
-  margin-bottom: 15px;
-}
-
-.rating {
-  color: #f3c969;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-
-.product-card h3 {
-  color: #214c3d;
-  margin-bottom: 10px;
-}
-
-.meta span {
-  display: block;
-  font-size: 14px;
-  color: #6f7d78;
-}
-
-.price {
-  margin: 20px 0;
-  font-size: 22px;
-  color: #214c3d;
-}
-
-.price del {
-  color: #b5b5b5;
-  margin-right: 8px;
-}
-
-button {
-  border: 2px solid #1f9c6a;
-  background: transparent;
-  padding: 10px 26px;
-  border-radius: 30px;
-  color: #1f9c6a;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1f9c6a;
+  top: 40%;
+  background: #234b43;
   color: #fff;
-}
-
-.badge {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #1f9c6a;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 13px;
-}
-
-.offers-section {
-  padding: 100px 90px;
-  background: #fff;
-}
-
-.offers-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  gap: 30px;
-  align-items: stretch;
-}
-
-/* PRODUCT CARD */
-.product-card {
-  background: #f9fdfb;
-  border-radius: 20px;
-  padding: 30px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,.05);
-}
-
-.product-card img {
-  width: 120px;
-  margin-bottom: 15px;
-}
-
-.rating {
-  color: #f3c969;
-  margin-bottom: 10px;
-}
-
-.product-card h3 {
-  color: #214c3d;
-  margin-bottom: 10px;
-}
-
-.meta {
-  font-size: 14px;
-  color: #6f7d78;
-}
-
-.price {
-  margin: 18px 0;
-  font-size: 22px;
-  color: #214c3d;
-}
-
-.price del {
-  color: #b5b5b5;
-  margin-right: 8px;
-}
-
-button {
-  padding: 10px 26px;
-  border-radius: 30px;
-  border: 2px solid #1f9c6a;
-  background: transparent;
-  color: #1f9c6a;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1f9c6a;
-  color: #fff;
-}
-
-.badge {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #1f9c6a;
-  color: #fff;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-}
-
-/* OFFER BANNER */
-.offer-banner {
-  background: #fdfcf6 url("{% static 'images/offer-bg.png' %}") no-repeat right center;
-  background-size: contain;
-  border-radius: 25px;
-  padding: 50px;
-}
-
-.offer-banner h2 {
-  font-size: 32px;
-  color: #214c3d;
-  margin-bottom: 15px;
-}
-
-.offer-banner p {
-  color: #6f7d78;
-  max-width: 500px;
-  line-height: 1.7;
-}
-
-/* COUNTDOWN */
-.countdown {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.countdown div {
-  background: #1f9c6a;
-  color: #fff;
-  padding: 14px 18px;
-  border-radius: 12px;
-  text-align: center;
-  min-width: 80px;
-}
-
-.countdown span {
-  font-size: 24px;
-  font-weight: 700;
-  display: block;
-}
-
-/* CTA */
-.center-btn {
-  text-align: center;
-  margin-top: 60px;
-}
-
-.btn-primary {
-  background: #f3c969;
-  color: #214c3d;
-  padding: 14px 32px;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-/* Product */
-.product-detail {
-  display: flex;
-  justify-content: space-between;
-  gap: 80px;
-  padding: 120px 90px;
-  align-items: flex-start;
-}
-
-/* IMAGE */
-.product-image img {
-  width: 100%;
-  max-width: 100%;
-}
-
-/* INFO */
-.product-info {
-  max-width: 600px;
-}
-
-.product-info h1 {
-  font-size: 42px;
-  color: #214c3d;
-  margin-bottom: 15px;
-}
-
-.rating {
-  color: #f3c969;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.rating span {
-  color: #6f7d78;
-  font-size: 15px;
-  margin-left: 5px;
-}
-
-.description {
-  color: #6f7d78;
-  line-height: 1.8;
-  margin-bottom: 30px;
-}
-
-/* FEATURES */
-.features {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 40px;
-}
-
-.features li {
-  margin-bottom: 14px;
-  font-size: 16px;
-  color: #214c3d;
-}
-
-/* BUY */
-.buy {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.price {
-  font-size: 36px;
-  font-weight: 700;
-  color: #214c3d;
-}
-
-.add-cart {
-  background: #f3c969;
   border: none;
-  padding: 14px 34px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #214c3d;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-.doctor-banner {
-  min-height: 520px;
-  background: radial-gradient(
-      circle at top,
-      rgba(255,255,255,0.08),
-      rgba(0,0,0,0.2)
-    ),
-    linear-gradient(135deg, #1e4c42, #12352e);
+.nav-btn:hover {
+  background: #30c296;
   
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.banner-content {
-  max-width: 70%;
-}
-
-.banner-logo {
-  width: 90px;
-  margin-bottom: 30px;
-}
-
-.banner-content h2 {
-  color: #ffffff;
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.4;
+  text-shadow:  2px 2px 4px rgba(2, 0, 0, 0.7);
 }
 
 
-/* STATS */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  margin-top: 90px;
-  padding: 50px;
-}
 
-.stat-box h3 {
-  font-size: 56px;
-  color: #1f9c6a;
-  margin-bottom: 12px;
-}
+.nav-btn.left { left: -15px; }
+.nav-btn.right { right: -15px; }
 
-.stat-box p {
-  font-size: 15px;
-  color: #6f7d78;
-  line-height: 1.6;
-}
-
-/* THERAPY SECTION */
-.therapy-section {
-  padding: 120px 90px;
-  background: #fff;
-  position: relative;
-}
-
-.therapy-container {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-/* LEFT */
-.therapy-left h2 {
-  font-size: 42px;
-  line-height: 1.2;
-  color: #214c3d;
-  margin-bottom: 20px;
-}
-
-.therapy-left p {
-  color: #6f7d78;
-  line-height: 1.7;
-  margin-bottom: 30px;
-  max-width: 420px;
-}
-
-.molecule {
-  width: 260px;
-  margin-top: 40px;
-  opacity: 0.7;
-}
-
-/* BUTTON */
-.btn-primary {
-  display: inline-block;
-  background: #f3c969;
-  color: #214c3d;
-  padding: 14px 30px;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-/* CENTER BLUR */
-.therapy-glow {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(31,156,106,.15), transparent 70%);
-  border-radius: 50%;
-  margin: auto;
-}
-
-/* RIGHT */
-.therapy-right {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.therapy-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #f3c969;
-  color: #214c3d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-
-.therapy-item h4 {
-  margin-bottom: 6px;
-  color: #214c3d;
-}
-
-.therapy-item p {
-  color: #6f7d78;
-  font-size: 14px;
-}
-
-
-.how-we-work {
-  padding: 100px 90px;
-  background: #fff;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-}
-
-/* HEADER */
-.how-header h2 {
-  font-size: 42px;
-  color: #214c3d;
-  margin-bottom: 15px;
-}
-
-.how-header p {
-  max-width: 620px;
-  margin: 0 auto 70px;
-  font-size: 17px;
-  color: #6f7d78;
-  line-height: 1.6;
-}
-
-/* GRID */
-.how-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 50px;
-}
-
-/* CARD */
-.how-card h3 {
-  font-size: 20px;
-  margin: 25px 0 12px;
-  color: #214c3d;
-}
-
-.how-card p {
-  font-size: 15px;
-  color: #6f7d78;
-  line-height: 1.6;
-}
-
-/* ICON */
-.icon-circle-card {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: #f5fbf8;
-  color: #1f9c6a;
-  font-size: 42px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.how-card .icon-circle-card:hover {
-  background: #1f9c6a;
-  color: #fff;
-  transition: all 0.3s ease;
+.show-more {
+  margin-top: 30px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 
 </style>
-  <section class="hero">
-  <!-- LEFT -->
-  <div class="hero-left">
-    <h1>
-      Highest Quality <br>
-      Marijuana Seeds
-    </h1>
-
-    <p>
-      Habitasse platea dictumst quisque sagittis purus sit.
-      Dignissim enim sit amet venenatis. In est ante in nibh
-      mauris cursus mattis.
-    </p>
-
-    <a href="#" class="btn-primary">Our Products</a>
-  </div>
-
-  <!-- RIGHT -->
-  <div class="hero-right">
-    <div class="hero-info">
-      <h2>Purple Hawaiian Haze</h2>
-
-      <p>
-        Nisl vel pretium lectus quam id leo in vitae.
-        Pellentesque adipiscing commodo elit at imperdiet
-      </p>
-
-      <ul class="feature-list">
-        <li>✔ Sativa-Dominant</li>
-        <li>✔ THC 110.0–160.0mg/g</li>
-        <li>✔ CBD 0.0–1.0mg/g</li>
-      </ul>
-
-      <a href="#" class="link-underline">About Product</a>
-    </div>
-
-    <div class="slide-numbers">
-      <span>01</span>
-      <span class="active">02</span>
-      <span>03</span>
-    </div>
-  </div>
-</section>
 
 
-<!-- FEATURED PRODUCTS -->
-
-<section class="featured">
-  <div class="featured-head">
-    <h2>Featured Products</h2>
-    <p>
-      Suscipit tellus mauris a diam maecenas sed enim ut sem.<br>
-      Turpis egestas maecenas pharetra convallis posuere
-    </p>
-  </div>
-
-  <div class="product-grid">
-    <!-- CARD -->
-    <div class="product-card">
-      <img src="{% static 'images/product1.png' %}" alt="Tangerine Dream">
-      <div class="rating">★★★★★</div>
-      <h3>Tangerine Dream</h3>
-      <div class="meta">
-        <span>THC 17.00–23.00%</span>
-        <span>CBD 0.00–1.00%</span>
-      </div>
-      <div class="price">$5.88</div>
-      <button>Add to Cart</button>
-    </div>
-
-    <div class="product-card">
-      <img src="{% static 'images/product2.png' %}" alt="Tangerine Dream">
-      <div class="rating">★★★★★</div>
-      <h3>Tangerine Dream</h3>
-      <div class="meta">
-        <span>THC 17.00–23.00%</span>
-        <span>CBD 0.00–1.00%</span>
-      </div>
-      <div class="price">$7.97</div>
-      <button>Add to Cart</button>
-    </div>
-
-    <div class="product-card sale">
-      <span class="badge">Sale</span>
-      <img src="{% static 'images/product3.png' %}" alt="High CBD 50 Oil">
-      <div class="rating">★★★★★</div>
-      <h3>High CBD 50 Oil</h3>
-      <div class="meta">
-        <span>THC 17.00–23.00%</span>
-        <span>CBD 0.00–1.00%</span>
-      </div>
-      <div class="price">
-        <del>$7.97</del> <strong>$5.99</strong>
-      </div>
-      <button>Add to Cart</button>
-    </div>
-
-    <div class="product-card sale">
-      <span class="badge">Sale</span>
-      <img src="{% static 'images/product4.png' %}" alt="CBD Plus Formula Oil">
-      <div class="rating">★★★★★</div>
-      <h3>CBD Plus Formula Oil</h3>
-      <div class="meta">
-        <span>THC 17.00–23.00%</span>
-        <span>CBD 0.00–1.00%</span>
-      </div>
-      <div class="price">
-        <del>$9.97</del> <strong>$7.99</strong>
-      </div>
-      <button>Add to Cart</button>
-    </div>
-  </div>
-</section>
-
-
-<!-- OFFERS SECTION -->
-
-<section class="offers-section">
-  <div class="offers-grid">
-
-    <!-- PRODUCT 1 -->
-    <div class="product-card sale">
-      <span class="badge">Sale</span>
-      <img src="{% static 'images/product1.png' %}" alt="Tangerine Dream">
-      <div class="rating">★★★★★</div>
-      <h3>Tangerine Dream</h3>
-
-      <p class="meta">
-        <strong>THC</strong> 17.00–23.00% <br>
-        <strong>CBD</strong> 0.00–1.00%
-      </p>
-
-      <div class="price">
-        <del>$12.15</del> <span>$7.97</span>
-      </div>
-
-      <button>Add to Cart</button>
-    </div>
-
-    <!-- PRODUCT 2 -->
-    <div class="product-card">
-      <img src="{% static 'images/product2.png' %}" alt="Limelight">
-      <div class="rating">★★★★★</div>
-      <h3>Limelight (Ultra Sour)</h3>
-
-      <p class="meta">
-        <strong>THC</strong> 18.00–25.00% <br>
-        <strong>CBD</strong> 0.00–1.00%
-      </p>
-
-      <div class="price">$10.15</div>
-      <button>Add to Cart</button>
-    </div>
-
-    <!-- OFFER BANNER -->
-    <div class="offer-banner">
-      <h2>Best Offers for Customers</h2>
-      <p>
-        Shop our selection of vape carts, available in a range
-        of strains, sizes, and formats, including true-to-flower
-        and larger cartridges.
-      </p>
-
-      <div class="countdown">
-        <div><span>00</span>Days</div>
-        <div><span>00</span>Hours</div>
-        <div><span>00</span>Mins</div>
-        <div><span>00</span>Secs</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="center-btn">
-    <a href="#" class="btn-primary">All Products</a>
-  </div>
-</section>
-
-
-
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat-box">
-      <h3>180+</h3>
-      <p><strong>New products to explore.</strong><br>
-      Arcu vitae elementum curabitur vitae nunc sed</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>3X</h3>
-      <p><strong>Quis risus sed vulputate odio ut.</strong><br>
-      Arcu vitae elementum curabitur vitae nunc</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>100%</h3>
-      <p><strong>Mauris a diam maecenas sed enim.</strong><br>
-      Mauris vitae nunc sed</p>
-    </div>
-
-    <div class="stat-box">
-      <h3>11K</h3>
-      <p><strong>Quis risus sed vulputate odio ut.</strong><br>
-      Arcu vitae elementum curabitur vitae nunc</p>
-    </div>
-  </div>
-</section>
-
-<section class="product-detail">
-  <!-- LEFT: PRODUCT IMAGE -->
-  <div class="product-image">
-    <img src="{% static 'image/product.jpg' %}" alt="CBD Facial Serum">
-  </div>
-
-  <!-- RIGHT: PRODUCT INFO -->
-  <div class="product-info">
-    <h1>CBD Facial Serum: Anti-Aging + Daily Moisturizer</h1>
-
-    <div class="rating">
-      ★★★★★ <span>(12)</span>
-    </div>
-
-    <p class="description">
-      Quis risus sed vulputate odio ut. Arcu vitae elementum curabitur vitae
-      nunc sed. Mauris a diam maecenas sed enim ut sem. Non enim praesent
-      elementum facilisis. Sapien nec sagittis aliquam malesuada bibendum
-      arcu vitae elementum.
-    </p>
-
-    <ul class="features">
-      <li>✔ Sativa-Dominant</li>
-      <li>✔ THC 110.0-160.0mg/g</li>
-      <li>✔ Euismod elementum</li>
-      <li>✔ CBD 0.0-1.0mg/g</li>
-    </ul>
-
-    <div class="buy">
-      <span class="price">$7.97</span>
-      <button class="add-cart">Add to Cart</button>
-    </div>
-  </div>
-</section>
-
-<!-- DOCTOR BANNER -->
-
-<section class="doctor-banner">
+<!-- Banner Section -->
+<section class="banner">
   <div class="banner-content">
-    <img src="{% static 'image/logo.png' %}" alt="Logo" class="banner-logo">
-
-    <h2>
-      Our doctors recommend the best THC to CBD ratio to look
-      for in a marijuana strain and suggest the recommended
-      dosage and route of administration
-    </h2>
+    <h1>Welcome to Herbalist</h1>
+    <p>Your one-stop shop for all things herbal and natural.</p>
+    <a href="#" class="shop-now-btn">Shop Now</a>
   </div>
 </section>
 
-<!-- THERAPY SECTION -->
+<!-- Product Section -->
 
-<section class="therapy-section">
-  <div class="therapy-container">
 
-    <!-- LEFT -->
-    <div class="therapy-left">
-      <h2>
-        Therapeutic Effects<br>
-        of Cannabis and<br>
-        Cannabinoids
-      </h2>
+<section class="product-section">
+  <h2 class="section-title">Self Care Essentials</h2>
 
-      <p>
-        Accumsan sit amet nulla facilisi morbi tempus.
-        Suscipit tellus mauris a diam maecenas sed enim
-        ut sem. Turpis egestas maecenas pharetra convallis posuere
-      </p>
+  <div class="slider-wrapper">
+    <button class="nav-btn left" onclick="scrollSlider(-1)">‹</button>
 
-      <a href="#" class="btn-primary">Our Products</a>
+    <div class="product-slider" id="productSlider">
+      
+      {% for product in products %}
+        {% if product.is_sale %}
+         <div class="product-card">
+             
+             <img src="{{ product.image.url }}" alt="{{ product.name }}">
 
-      <img src="{% static 'image/effects.jpg' %}" 
-           alt="Chemical Structure"
-           class="molecule">
+        <h4>{{ product.name|truncatechars:28 }}</h4>
+
+        <p class="tagline">{{ product.description }} <br> in: {{ product.category }} </p>
+
+        <div class="price">
+          <span class="new">₹{{ product.price }}</span>
+          {% if product.old_price %}
+          <del>₹{{ product.old_price }}</del>
+          {% endif %}
+        </div>
+
+        <a href="#" class="add-btn">
+          ADD TO CART
+        </a>
+      </div>
+         {% else %}
+      <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+        <h4>{{ product.name|truncatechars:28 }}</h4>
+
+        <p class="tagline">{{ product.description }} <br> in: {{ product.category }} </p>
+
+        <div class="price">
+          <span class="new">₹{{ product.price }}</span>
+          
+        </div>
+
+        <a href="{% url 'products:product' product.id  %}" class="add-btn">
+          VIEW PRODUCT
+        </a>
+      </div>
+        {% endif %}
+      {% endfor %}
+
     </div>
 
-    <!-- CENTER GLOW -->
-    <div class="therapy-glow"></div>
-
-    <!-- RIGHT -->
-    <div class="therapy-right">
-      <div class="therapy-item">
-        <div class="icon">⚡</div>
-        <div>
-          <h4>Relief of chronic pain</h4>
-          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
-        </div>
-      </div>
-
-      <div class="therapy-item">
-        <div class="icon">❤</div>
-        <div>
-          <h4>Fight cancer</h4>
-          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
-        </div>
-      </div>
-
-      <div class="therapy-item">
-        <div class="icon">🧠</div>
-        <div>
-          <h4>Depression</h4>
-          <p>Feugiat in fermentum posuere urna nec tincidunt praesent</p>
-        </div>
-      </div>
-    </div>
-
+    <button class="nav-btn right" onclick="scrollSlider(1)">›</button>
   </div>
+
+  <div class="show-more">Show More</div>
 </section>
 
 
-<!-- HOW WE WORK -->
-<section class="how-we-work">
-  <div class="how-header">
-    <h2>How We Work</h2>
-    <p>
-      Accumsan sit amet nulla facilisi morbi tempus. Suscipit
-      tellus mauris a diam maecenas sed enim ut sem
-    </p>
-  </div>
-
-  <div class="how-grid">
-    <div class="how-card">
-      <div class="icon-circle-card">🚚</div>
-      <h3>Free Shipping & Returns</h3>
-      <p>
-        Quis risus sed vulputate odio ut. Arcu vitae elementum
-        curabitur vitae nunc
-      </p>
-    </div>
-
-    <div class="how-card">
-      <div class="icon-circle-card">💲</div>
-      <h3>Money Back Guarantee</h3>
-      <p>
-        Quis risus sed vulputate odio ut. Arcu vitae elementum
-        curabitur vitae nunc
-      </p>
-    </div>
-
-    <div class="how-card">
-      <div class="icon-circle-card">🎧</div>
-      <h3>Online Support</h3>
-      <p>
-        Quis risus sed vulputate odio ut. Arcu vitae elementum
-        curabitur vitae nunc
-      </p>
-    </div>
-
-    <div class="how-card">
-      <div class="icon-circle-card">🔒</div>
-      <h3>100% Secure Payment</h3>
-      <p>
-        Quis risus sed vulputate odio ut. Arcu vitae elementum
-        curabitur vitae nunc
-      </p>
-    </div>
-  </div>
-</section>
-
-
-
+<script>
+function scrollSlider(direction) {
+  const slider = document.getElementById("productSlider");
+  slider.scrollLeft += direction * 300;
+}
+</script>
 
 {% endblock %}
+
