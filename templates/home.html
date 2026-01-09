@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+{% block title %} <title>Home page</title> {% endblock %}
+{% load static %}
+{% block bodyblock %}
+<style>
+/* This is the banner section styles */
+.banner {
+    background-image: url("{% static 'image/Banner 2.png' %}") ;
+    background-size: cover;
+    background-position: center;
+    height: 450px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 100px;
+    color: white;
+    text-align: left;
+    position: relative;
+    Text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    padding: 0 50px;
+}
+.banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 1;
+
+}
+.banner-content {
+    position: relative;
+    z-index: 2;
+}
+.shop-now-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #1f4d3f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.shop-now-btn:hover {
+    background-color: #14532d;
+    Text-shadow: 2px 2px 4px rgba(2, 0, 0, 0.7);
+}
+
+/* this is the product section styles */
+
+.product-section {
+  padding: 80px 60px;
+  text-align: center;
+  background: #fff;
+}
+
+.section-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
+.product-slider {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+}
+
+.product-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  min-width: 300px;
+  background: #fff;
+  text-align: center;
+}
+
+.product-card img {
+  width: 180px;
+  margin-bottom: 15px;
+}
+
+.product-card h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.tagline {
+  font-size: 13px;
+  color: #234b43;
+  margin-bottom: 10px;
+}
+
+.price {
+  margin-bottom: 15px;
+}
+
+.price .new {
+  font-weight: 600;
+}
+
+.price del {
+  color: #999;
+  margin-left: 8px;
+}
+
+.add-btn {
+  display: block;
+  background: #234b43;
+  color: #fff;
+  padding: 12px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.add-btn:hover {
+  background: #30c296;
+  text-shadow:  2px 2px 4px rgba(2, 0, 0, 0.7);
+}
+
+.nav-btn {
+  position: absolute;
+  top: 40%;
+  background: #234b43;
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: #30c296;
+  
+  text-shadow:  2px 2px 4px rgba(2, 0, 0, 0.7);
+}
+
+
+
+.nav-btn.left { left: -15px; }
+.nav-btn.right { right: -15px; }
+
+.show-more {
+  margin-top: 30px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+</style>
+
+
+<!-- Banner Section -->
+<section class="banner">
+  <div class="banner-content">
+    <h1>Welcome to Herbalist</h1>
+    <p>Your one-stop shop for all things herbal and natural.</p>
+    <a href="#" class="shop-now-btn">Shop Now</a>
+  </div>
+</section>
+
+<!-- Product Section -->
+
+
+<section class="product-section">
+  <h2 class="section-title">Self Care Essentials</h2>
+
+  <div class="slider-wrapper">
+    <button class="nav-btn left" onclick="scrollSlider(-1)">‹</button>
+
+    <div class="product-slider" id="productSlider">
+      
+      {% for product in products %}
+        {% if product.is_sale %}
+         <div class="product-card">
+             
+             <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+        <h4>{{ product.name|truncatechars:28 }}</h4>
+
+        <p class="tagline">{{ product.description }} <br> in: {{ product.category }} </p>
+
+        <div class="price">
+          <span class="new">₹{{ product.price }}</span>
+          {% if product.old_price %}
+          <del>₹{{ product.old_price }}</del>
+          {% endif %}
+        </div>
+
+        <a href="#" class="add-btn">
+          ADD TO CART
+        </a>
+      </div>
+         {% else %}
+      <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+        <h4>{{ product.name|truncatechars:28 }}</h4>
+
+        <p class="tagline">{{ product.description }} <br> in: {{ product.category }} </p>
+
+        <div class="price">
+          <span class="new">₹{{ product.price }}</span>
+          
+        </div>
+
+        <a href="{% url 'products:product' product.id  %}" class="add-btn">
+          VIEW PRODUCT
+        </a>
+      </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <button class="nav-btn right" onclick="scrollSlider(1)">›</button>
+  </div>
+
+  <div class="show-more">Show More</div>
+</section>
+
+
+<script>
+function scrollSlider(direction) {
+  const slider = document.getElementById("productSlider");
+  slider.scrollLeft += direction * 300;
+}
+</script>
+
+{% endblock %}
+
