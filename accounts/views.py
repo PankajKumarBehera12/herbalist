@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from products.models import Product
+from cart.cart import Cart
 # Create your views here.
 
 
@@ -33,6 +34,7 @@ def login_view(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if request.user.is_authenticated:
+            Cart(request)  # Initialize cart for the user
             return redirect('accounts:home')
         # Authentication logic here (not implemented)
         # Redirect to a home page after login (not implemented)
